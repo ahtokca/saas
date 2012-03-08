@@ -3,7 +3,7 @@ module ApplicationHelper
   def th_sortable(column, title = nil)
     title ||= column.titleize
     current = column == sort_column
-    css_class = current ? "current #{sort_direction}" : nil
+    css_class = current ? "hilite" : nil
     id_name = "#{column}_header"
     direction = current && sort_direction == "asc" ? "desc" : "asc"
     capture_haml do
