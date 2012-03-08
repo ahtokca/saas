@@ -8,7 +8,7 @@ module ApplicationHelper
     direction = current && sort_direction == "asc" ? "desc" : "asc"
     capture_haml do
       haml_tag :th, :class => css_class do
-        link_to title, {:sort => column, :direction => direction}, {:id => id_name}
+        haml_concat link_to title, {:sort => column, :direction => direction}, {:id => id_name}
       end
     end
   end
