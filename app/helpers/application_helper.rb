@@ -1,6 +1,6 @@
 module ApplicationHelper
   
-  def sortable(column, title = nil)
+  def sortable(column_names, column, title = nil)
     title ||= column.titleize
     css_class = column == sort_column(column) ? "current #{sort_direction}" : nil
     direction = column == sort_column(column) && sort_direction == "asc" ? "desc" : "asc"
