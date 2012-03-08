@@ -6,8 +6,10 @@ module ApplicationHelper
     css_class = current ? "current #{sort_direction}" : nil
     id_name = "#{column}_header"
     direction = current && sort_direction == "asc" ? "desc" : "asc"
-    capture_haml :th, :class => css_class do
-      link_to title, {:sort => column, :direction => direction}, {:id => id_name}
+    capture_haml do
+      haml_tag :th, :class => css_class do
+        link_to title, {:sort => column, :direction => direction}, {:id => id_name}
+      end
     end
   end
 
