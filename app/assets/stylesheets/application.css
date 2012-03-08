@@ -61,7 +61,7 @@ form label {
 }
 
 table#movies th .current {
-  background-color: orange;
+  background-color: yellow;
 }
 
 table#movies th .asc {
@@ -69,5 +69,5 @@ table#movies th .asc {
 }
 
 table#movies th .desc {
- 
+  
 }
