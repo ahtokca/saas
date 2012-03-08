@@ -1,13 +1,17 @@
 class MoviesController < ApplicationController
-
+  include ApplicationHelper
   def show
     id = params[:id] # retrieve movie ID from URI route
-    @movie = Movie.find(id) # look up movie by unique ID
+    column = sortable("title")
+    direction = sort_direction
+    @movie = Movie.order(column + " " + direction) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
-    @movies = Movie.find(:all, :order => "title, attending ASC")
+    order = params[:order]
+    direction = params[:direction]
+    @movies = Movie.find(:all, :order => "#{order} ASC")
   end
 
   def new

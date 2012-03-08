@@ -59,3 +59,15 @@ form label {
   font-weight: bold;
   color: maroon;
 }
+
+table#movies th .current {
+  background-color: orange;
+}
+
+table#movies th .asc {
+  
+}
+
+table#movies th .desc {
+ 
+}
