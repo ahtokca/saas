@@ -75,7 +75,7 @@ class MoviesController < ApplicationController
   end
   
   def redirect_params
-   {:sort => sort_column(session)}  
+   {:sort => sort_column(session), :ratings => session_ratings}  
   end
   
   def session_empty?
