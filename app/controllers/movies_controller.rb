@@ -51,7 +51,8 @@ class MoviesController < ApplicationController
   end
   
   def filter_ratings()
-    params[:ratings].keys & Movie.valid_ratings
+    r = params[:ratings]
+    r == nil ? [] : r.keys & Movie.valid_ratings
   end
   
   def sort_direction
