@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :array_to_hash
   
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings
     session_ratings = session_ratings
-    puts "PARAMS #{params.to_s}"
     if (!params.include?(:ratings) && !params.include?(:sort))
       mp = array_to_hash(session_ratings)
       mp[:sort] = column
@@ -75,6 +74,11 @@ class MoviesController < ApplicationController
   def sort_direction
     #%w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     "asc"
+  end
+  
+    
+  def array_to_hash(a)
+    Hash[*a.collect { |v| [v, v*2] }.flatten]
   end
 
 

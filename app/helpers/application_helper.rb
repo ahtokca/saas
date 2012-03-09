@@ -12,9 +12,6 @@ module ApplicationHelper
       end
     end
   end
-  
-  def array_to_hash(a)
-    Hash[*a.collect { |v| [v, v*2] }.flatten]
-  end
+
 
 end
