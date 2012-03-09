@@ -8,9 +8,13 @@ module ApplicationHelper
     direction = current && sort_direction == "asc" ? "desc" : "asc"
     capture_haml do
       haml_tag :th, :class => css_class do
-        haml_concat link_to title, {:sort => column, :direction => direction, :ratings => ratings}, {:id => id_name}
+        haml_concat link_to title, {:sort => column, :direction => direction, :ratings => array_to_hash(ratings)}, {:id => id_name}
       end
     end
+  end
+  
+  def array_to_hash(a)
+    Hash[*a.collect { |v| [v, v*2] }.flatten]
   end
 
 end
