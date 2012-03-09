@@ -13,7 +13,9 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings
     if (params_empty? && !session_empty? )
-      redirect_to movies_path, redirect_params
+      rp = redirect_params
+      puts "R PARAMS #{rp.to_s}"
+      redirect_to movies_path (rp)
     else
       session[:ratings] = @ratings
       session[:sort] = column
