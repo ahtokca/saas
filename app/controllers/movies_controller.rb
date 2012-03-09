@@ -12,11 +12,8 @@ class MoviesController < ApplicationController
     direction = sort_direction
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings
-    s_ratings = session_ratings
-    if (!params.include?(:ratings) && !params.include?(:sort) && (!s_ratings.empty? || session.include?(:sort)))
-      #mp = {:ratings => array_to_hash(s_ratings), :sort => session[:sort]}
-      mp = {:sort => session[:sort]}
-      redirect_to movies_path, mp
+    if (params_empty? && !session_empty? )
+      redirect_to movies_path, redirect_params
     else
       session[:ratings] = @ratings
       session[:sort] = column
@@ -55,6 +52,10 @@ class MoviesController < ApplicationController
   private
   
   
+  def params_empty? 
+    !params.include?(:ratings) && !params.include?(:sort)
+  end
+  
   def sort_column(ar=nil)
     ar = params if ar == nil
     Movie.column_names.include?(ar[:sort]) ? ar[:sort] : "title"
@@ -69,6 +70,14 @@ class MoviesController < ApplicationController
   def session_ratings()
     r = session[:ratings]
     r == nil ? [] : r & Movie.valid_ratings
+  end
+  
+  def redirect_params
+   {:sort => sort_column(session)}  
+  end
+  
+  def session_empty?
+    !session.include?(:ratings) && !session.include?(:sort)
   end
   
   def sort_direction
