@@ -12,9 +12,9 @@ class MoviesController < ApplicationController
     direction = sort_direction
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings
-    session_ratings = session_ratings
-    if (!params.include?(:ratings) && !params.include?(:sort) && (!session_ratings.empty? || session.include?(:sort)))
-      mp = array_to_hash(session_ratings)
+    s_ratings = session_ratings
+    if (!params.include?(:ratings) && !params.include?(:sort) && (!s_ratings.empty? || session.include?(:sort)))
+      mp = array_to_hash(s_ratings)
       mp[:sort] = session[:sort]
       redirect_to movies_path(mp)
     else
