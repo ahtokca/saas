@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings
     session_ratings = session_ratings
+    puts params
     if (params.empty?)
       mp = array_to_hash(session_ratings)
       mp[:sort] = column
