@@ -11,7 +11,8 @@ class MoviesController < ApplicationController
     column = sort_column
     direction = sort_direction
     @all_ratings = Movie.valid_ratings 
-    @movies = Movie.order(column + " " + direction) # look up movie by unique ID
+    @ratings = filter_ratings 
+    @movies = @ratings.empty ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)
   end
 
   def new
@@ -47,6 +48,10 @@ class MoviesController < ApplicationController
   
   def sort_column()
     Movie.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+  
+  def filter_ratings()
+    params[:ratings].keys & Movie.valid_ratings
   end
   
   def sort_direction

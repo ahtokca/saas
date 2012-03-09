@@ -5,16 +5,16 @@
   Include: 
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]"
+    = check_box_tag "ratings[#{rating}]", @ratings.include?(rating)
   = hidden_field_tag :sort, sort_column    
   = submit_tag 'Refresh'
   
 %table#movies
   %thead
     %tr
-      = th_sortable "title", "Movie Title"
+      = th_sortable "title", "Movie Title", @ratings
       %th Rating
-      = th_sortable "release_date",  "Release Date"
+      = th_sortable "release_date",  "Release Date", @ratings
       %th More Info
   %tbody
     - @movies.each do |movie|

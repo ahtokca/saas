@@ -1,6 +1,6 @@
 module ApplicationHelper
   
-  def th_sortable(column, title = nil)
+  def th_sortable(column, title = nil, ratings=[])
     title ||= column.titleize
     current = column == sort_column
     css_class = current ? "hilite" : nil
