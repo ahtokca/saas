@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
       mp = {:ratings => array_to_hash(s_ratings), :sort => session[:sort]}
       redirect_to movies_path, mp
     else
-      session[:ratings] = @ratings
+      #session[:ratings] = @ratings
       session[:sort] = column
       @movies = @ratings.empty? ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)      
     end
