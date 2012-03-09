@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
   def index
     column = sort_column
     direction = sort_direction
+    @all_ratings = Movie.valid_ratings 
     @movies = Movie.order(column + " " + direction) # look up movie by unique ID
   end
 
