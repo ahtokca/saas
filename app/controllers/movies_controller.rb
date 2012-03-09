@@ -56,12 +56,12 @@ class MoviesController < ApplicationController
   
   
   def sort_column(ar=nil)
-    ar = params unless defined? ar
+    ar = params if ar == nil
     Movie.column_names.include?(ar[:sort]) ? ar[:sort] : "title"
   end
     
   def filter_ratings(ar=nil)
-    ar = params unless defined? ar
+    ar = params if ar == nil
     r = ar[:ratings]
     r == nil ? [] : r.keys & Movie.valid_ratings
   end
