@@ -68,7 +68,7 @@ class MoviesController < ApplicationController
   
   def session_ratings()
     r = session[:ratings]
-    r & Movie.valid_ratings
+    r == nil ? [] : r & Movie.valid_ratings
   end
   
   def sort_direction
