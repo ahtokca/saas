@@ -72,6 +72,7 @@ class MoviesController < ApplicationController
   def session_ratings()
     r = session[:ratings]
     r == nil ? [] : r & Movie.valid_ratings
+    array_to_hash(r)
   end
   
   def redirect_params
