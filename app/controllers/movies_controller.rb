@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     direction = sort_direction
     @all_ratings = Movie.valid_ratings 
     @ratings = filter_ratings 
-    @movies = @ratings.empty ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)
+    @movies = @ratings.empty? ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)
   end
 
   def new
