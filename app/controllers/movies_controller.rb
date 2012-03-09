@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     @ratings = filter_ratings
     session_ratings = session_ratings
     puts "PARAMS #{params.to_s}"
-    if (params.empty?)
+    if (!params.include?(:ratings) && !params.include?(:sort))
       mp = array_to_hash(session_ratings)
       mp[:sort] = column
       redirect_to movies_path(mp)
