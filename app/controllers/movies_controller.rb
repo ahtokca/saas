@@ -11,8 +11,17 @@ class MoviesController < ApplicationController
     column = sort_column
     direction = sort_direction
     @all_ratings = Movie.valid_ratings 
-    @ratings = filter_ratings 
-    @movies = @ratings.empty? ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)
+    @ratings = filter_ratings
+    session_ratings = filter_ratings(session)
+    if (@ratings.empty? && !session_ratings.empty?)
+      mp = array_to_hash(session_ratings)
+      mp[:sort] = column
+      redirect_to movies_path(mp)
+    else
+      session[:ratings] = @ratings
+      session[:sort] = column
+      @movies = @ratings.empty? ? Movie.order(column + " " + direction) : Movie.order(column + " " + direction).where(:rating => @ratings)      
+    end
   end
 
   def new
@@ -46,12 +55,14 @@ class MoviesController < ApplicationController
   private
   
   
-  def sort_column()
-    Movie.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  def sort_column(ar=nil)
+    ar = params unless defined? ar
+    Movie.column_names.include?(ar[:sort]) ? ar[:sort] : "title"
   end
-  
-  def filter_ratings()
-    r = params[:ratings]
+    
+  def filter_ratings(ar=nil)
+    ar = params unless defined? ar
+    r = ar[:ratings]
     r == nil ? [] : r.keys & Movie.valid_ratings
   end
   
